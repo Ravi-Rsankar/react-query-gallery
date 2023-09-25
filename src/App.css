@@ -1,38 +1,53 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* CSS for the gallery container */
+.gallery-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Background color for the container */
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  /* CSS for the scrollable container */
+  .scroll-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust the gap between images */
+    max-width: 1200px; /* Limit the width of the gallery */
+    overflow-y: auto;
+    height: 80vh; /* Limit the height of the gallery */
+    padding: 20px;
   }
-  to {
-    transform: rotate(360deg);
+  
+  /* CSS for each page */
+  .page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
   }
-}
+  
+  /* CSS for each image container */
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff; /* Background color for each image container */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+  }
+  
+  /* CSS for the image */
+  .image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* Rounded corners for the image */
+  }
+  
+  /* CSS for the author's name */
+  .author {
+    margin-top: 10px; /* Spacing between image and author's name */
+    font-weight: bold;
+    text-align: center;
+  }
+  

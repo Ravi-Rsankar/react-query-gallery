@@ -7,13 +7,13 @@ const Todo = () => {
     const scrollContainerRef = useRef(null);
     const [page, setPage] = useState(1);
 
-    const fetchData = async ({pageParams = 1}) => {
+    const fetchData = async ({ pageParams = 2 }) => {
         const response = await axios.get(`https://picsum.photos/v2/list?page=${pageParams}`);
         return response.data;
     };
 
     // const { data, isLoading, isError, error } = useQuery(['posts', page], () => fetchData(page))
-    const { data, isLoading, isError, error } = useInfiniteQuery(['posts'], fetchData , {
+    const { data, isLoading, isError, error } = useInfiniteQuery(['posts'], fetchData, {
         getNextPageParam: (_lastPage, pages) => {
 
         }
@@ -21,7 +21,7 @@ const Todo = () => {
     // Attach a scroll event listener to the scroll container.
 
     const handleScroll = useCallback(() => {
-        if(data && data.length === 0){
+        if (data && data.length === 0) {
             if (
                 scrollContainerRef.current &&
                 scrollContainerRef.current.scrollHeight -
@@ -31,8 +31,8 @@ const Todo = () => {
                 // Fetch the next page when the user scrolls near the bottom.
                 setPage((prevPage) => prevPage + 1);
             }
-        }else{
-            console.log("empty data: ",page,  data)
+        } else {
+            console.log("empty data: ", page, data)
         }
     }, []);
 
@@ -41,19 +41,31 @@ const Todo = () => {
         <div
             ref={scrollContainerRef}
             onScroll={handleScroll}
-            style={{
-                height: '400px', // Set the height of the scrollable container as needed
-                overflowY: 'auto',
-            }}
+            className='gallery-container'
         >
             {/* Render your data */}
-            <div className="">
+            {console.log(data?.pages)}
+            <div className='scroll-container'>
                 {data?.pages.map((posts, index) => (
-                    <div key={index}>
+                    <div key={index} className='page'>
                         {posts.map((post, i) => {
-                            return <div key={i}>
-                                {post.author}
-                            </div>
+                            if(post.url){
+                                {console.log("-> ", post.url)}
+                                return (
+                                    <div key={i} className='image-container'>
+                                        <img src={post.url} alt={post.author} />
+                                        {post.author}
+                                    </div>
+                                )
+                            }else{
+                                {console.log("else : ", post.url)}
+                                return (
+                                    <div key={i} className='image-container'>
+                                        <p>Image not found</p>
+                                        {post.author}
+                                    </div>
+                                )
+                            }
                         })}
                     </div>
                 ))}
